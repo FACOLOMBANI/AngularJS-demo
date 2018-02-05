@@ -8,12 +8,30 @@ angular.module("dolisttest")
 
 function home($resource) {
 
+     // Obtenir la position actuelle de l'utilisateur
+     let lat;
+     let long;
+     let getLocation = () => {
+         if (navigator.geolocation) {
+             navigator.geolocation.getCurrentPosition(showPosition);
+         } else {
+             alert("Geolocation is not supported by this browser.");
+         }
+     }
+ 
+     let showPosition = (position) => {
+         lat = position.coords.latitude;
+         long = position.coords.longitude;
+         getRecomm(lat, long, "")
+     }
+ 
+     getLocation();
+
     this.lookUp = () => {
         let category = "";
         let url = "https://api.foursquare.com/v2/venues/search?near=" + this.ville + "&query=" + (this.query == undefined ? "" : this.query) + "&v=20180101";
         let nearVenuesBdd = $resource(url, AUTH);
         let nearVenues = nearVenuesBdd.get().$promise.then((data) => {
-            debugger;
             let cityvenues = data.response.venues;
             let len = cityvenues.length;
             this.category = category;
