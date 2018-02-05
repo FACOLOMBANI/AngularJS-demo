@@ -54,9 +54,25 @@ html * {
 }
 
 .result {
-    min-height: 250px;
+    min-height: 265px;
 }
 
 .url{
     word-wrap: break-word;
+}
+
+.categoryTitle{
+    margin-left: 15px;
+}
+
+.category{
+    cursor: pointer;
+}
+
+.category:hover{
+    background-color: lightgoldenrodyellow;
+}
+
+.category:focus {
+    background-color:lightgoldenrodyellow;
 }
