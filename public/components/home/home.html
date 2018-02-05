@@ -52,4 +52,35 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-3 col-lg-2" ng-repeat="res in $ctrl.cityvenues track by $index" ng-if="$ctrl.cityvenues.length>0">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h5>{{res.name}}</h5>
+            </div>
+            <div class="panel-body">
+              <div>
+                Type : {{res.categories[0].shortName}}
+              </div>
+              <div class="address">
+                <a href="http://maps.google.com/?q={{rec.venue.location.lat}},{{rec.venue.location.lng}}" target="_blank">
+                  <div> {{res.location.formattedAddress[0]}}
+                  </div>
+                  <div> {{res.location.formattedAddress[1]}}
+                  </div>
+                </a>
+              </div>
+              <div class="phone">
+                <div> {{res.contact.formattedPhone}}
+                </div>
+              </div>
+              <div class="url">
+                <div>
+                  <a href="{{res.url}}" target="_blank">{{res.url}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>

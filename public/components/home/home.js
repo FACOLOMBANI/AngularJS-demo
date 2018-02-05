@@ -30,6 +30,7 @@ function home($resource) {
     let getRecomm = (lat, long) => {
         let recVenuesBdd = $resource("https://api.foursquare.com/v2/venues/explore?ll=" + lat + "," + long + "&v=20180101", AUTH);
         let recVenues = recVenuesBdd.get().$promise.then((data) => {
+            debugger;
             let recdata;
             let recArray = new Array();
             let old = new Array();
@@ -38,7 +39,7 @@ function home($resource) {
             recdata = data.response.groups[0].items;
             //on choisi 6 recommendations au hazard sur un resultat de 30 elements
             for (let i = 0; i < 6; i++) {
-                if (old.includes(randNum)) {
+                while (old.includes(randNum)) {
                     randNum = Math.floor(Math.random() * len);
                 }
                 old.push(randNum);
