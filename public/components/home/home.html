@@ -10,7 +10,44 @@
                     <input type="text" class="form-control" ng-model="$ctrl.query" placeholder="Qui, Quoi ? Sinon choisissez une catégorie.">
                 </div>
                 <div class="col col-lg-4 col-md-4 col-sm-12">
-                    <button class="btn btn-default" ng-click="$ctrl.lookUp()">Chercher</button>
+                    <button class="btn btn-danger" ng-click="$ctrl.lookUp()">Chercher</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-3 col-lg-2" ng-repeat="rec in $ctrl.recArray track by $index" ng-if="$ctrl.recArray.length>0">
+            <div class="panel panel-default reco">
+                <div class="panel-heading">
+                    <h5>{{rec.venue.name}}</h5>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        Note :
+                        <span class="glyphicon glyphicon-star"></span>{{rec.venue.rating}}
+                    </div>
+                    <div>
+                        Type : {{rec.venue.categories[0].shortName}}
+                    </div>
+                    <div class="address" ng-class="{ 'hidden': ! showDetails }">
+                        <a href="http://maps.google.com/?q={{rec.venue.location.lat}},{{rec.venue.location.lng}}" target="_blank">
+                            <div> {{rec.venue.location.formattedAddress[0]}}
+                            </div>
+                            <div> {{rec.venue.location.formattedAddress[1]}}
+                            </div>
+                        </a>
+                    </div>
+                    <div class="phone" ng-class="{ 'hidden': ! showDetails }">
+                        <div> {{rec.venue.contact.formattedPhone}}
+                        </div>
+                    </div>
+                    <div class="info">
+                        <a href="" ng-click="showDetails = ! showDetails">
+                            <span class="glyphicon glyphicon-collapse-down plusinfo" ng-class="{ 'hidden': showDetails }"></span>
+                            <span class="glyphicon glyphicon-collapse-up plusinfo" ng-class="{ 'hidden': ! showDetails }"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

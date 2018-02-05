@@ -8,25 +8,47 @@ angular.module("dolisttest")
 
 function home($resource) {
 
-     // Obtenir la position actuelle de l'utilisateur
-     let lat;
-     let long;
-     let getLocation = () => {
-         if (navigator.geolocation) {
-             navigator.geolocation.getCurrentPosition(showPosition);
-         } else {
-             alert("Geolocation is not supported by this browser.");
-         }
-     }
- 
-     let showPosition = (position) => {
-         lat = position.coords.latitude;
-         long = position.coords.longitude;
-     }
- 
-    getLocation();
-    
+    // Obtenir la position actuelle de l'utilisateur
+    let lat;
+    let long;
+    let getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
 
+    let showPosition = (position) => {
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        getRecomm(lat, long)
+    }
+
+    getLocation();
+
+    let getRecomm = (lat, long) => {
+        let recVenuesBdd = $resource("https://api.foursquare.com/v2/venues/explore?ll=" + lat + "," + long + "&v=20180101", AUTH);
+        let recVenues = recVenuesBdd.get().$promise.then((data) => {
+            let recdata;
+            let recArray = new Array();
+            let old = new Array();
+            let len = data.response.groups[0].items.length;
+            let randNum = Math.floor(Math.random() * len);
+            recdata = data.response.groups[0].items;
+            //on choisi 6 recommendations au hazard sur un resultat de 30 elements
+            for (let i = 0; i < 6; i++) {
+                if (old.includes(randNum)) {
+                    randNum = Math.floor(Math.random() * len);
+                }
+                old.push(randNum);
+                recArray.push(recdata[randNum]);
+            }
+            this.recArray = recArray;
+            this.location = data.response.headerLocation;
+            console.log(this.recArray)
+        })
+    }
 
     this.lookUp = () => {
         let category = "";
@@ -37,7 +59,7 @@ function home($resource) {
             }).popover('show');
         } else {
             angular.element('#ville').popover('hide');
-            let url = "https://api.foursquare.com/v2/venues/search?near=" + this.ville + "&query=" + (this.query == undefined ? "" : this.query) + "&v=20180101";
+            let url = "https://api.foursquare.com/v2/venues/search?near=" + this.ville + "&categoryId=" + category + "&query=" + (this.query == undefined ? "" : this.query) + "&v=20180101";
             let nearVenuesBdd = $resource(url, AUTH);
             let nearVenues = nearVenuesBdd.get().$promise.then((data) => {
                 let cityvenues = data.response.venues;
@@ -49,6 +71,6 @@ function home($resource) {
                 console.log(this.cityvenues)
             })
         }
-    }    
+    }
 
 }
