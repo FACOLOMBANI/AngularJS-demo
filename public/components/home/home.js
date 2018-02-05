@@ -30,7 +30,6 @@ function home($resource) {
     let getRecomm = (lat, long) => {
         let recVenuesBdd = $resource("https://api.foursquare.com/v2/venues/explore?ll=" + lat + "," + long + "&v=20180101", AUTH);
         let recVenues = recVenuesBdd.get().$promise.then((data) => {
-            debugger;
             let recdata;
             let recArray = new Array();
             let old = new Array();
@@ -47,7 +46,6 @@ function home($resource) {
             }
             this.recArray = recArray;
             this.location = data.response.headerLocation;
-            console.log(this.recArray)
         })
     }
 
@@ -67,9 +65,6 @@ function home($resource) {
                 let len = cityvenues.length;
                 this.category = category;
                 this.cityvenues = cityvenues;
-
-                console.log(data)
-                console.log(this.cityvenues)
             })
         }
     }

@@ -18,3 +18,45 @@ html * {
 .plusinfo{
     font-size: 20px;
 }
+
+#Loading{
+    text-align: center;
+    padding:20px 0;
+}
+
+.glyphicon-refresh{
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+    font-size:30px;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+.address{
+    margin-top: 10px;
+}
+
+.phone{
+    margin-top : 10px;
+}
+
+.info{
+    margin-top : 10px;
+
+}
+
+.result {
+    min-height: 250px;
+}
+
+.url{
+    word-wrap: break-word;
+}
