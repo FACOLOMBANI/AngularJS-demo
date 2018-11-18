@@ -1,4 +1,4 @@
-# DOLISTTEST
+# AngularJS Demo
 
 Une application afin de trouver des lieux a visiter dans une ville specifique.
 
